@@ -85,7 +85,8 @@
 
 
     <modules>
-        <module>spark</module>
+        <module>spark/geospark</module>
+        <module>spark/stark</module>
     </modules>
 
     <repositories>
