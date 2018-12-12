@@ -30,13 +30,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <!--<configuration>-->
-                    <!--<archive>-->
-                        <!--<manifest>-->
-                            <!--<mainClass>com.examples.hops.spark.geospark.PolygonsPolygonsgonsPolygons</mainClass>-->
-                        <!--</manifest>-->
-                    <!--</archive>-->
-                <!--</configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -55,11 +48,6 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <!--<archive>-->
-                        <!--<manifest>-->
-                            <!--<mainClass>com.examples.hops.spark.geospark.PolygonsPolygonsgonsPolygons</mainClass>-->
-                        <!--</manifest>-->
-                    <!--</archive>-->
                 </configuration>
                 <executions>
                     <execution>
