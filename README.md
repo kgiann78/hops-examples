@@ -13,7 +13,7 @@ In the datasets directory exist the files that are used from the applications, a
 GeoSpark is using text files as input datasets with only one geometry per line.
 On the other hand, STARK is using tsv files (produced from corresponding shapefiles). Since it contains more information than the geometry itself we use tsv format because a CSV format (with WKT form of the geometry would lead us to several issues).
 
-Note that geometries should not be contained withing double quotes ("") because in that way the applications see the geometries as strings and not actual geometries.
+Note that geometries should not be contained within double quotes ("") because in that way the applications see the geometries as strings and not actual geometries.
 
 In order to convert a shapefile to a tsv file use the following command: 
 
