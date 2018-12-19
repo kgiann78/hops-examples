@@ -1,5 +1,6 @@
 package com.examples.hops.spark.geospark;
 
+import com.examples.hops.spark.common.HDFSWriter;
 import com.vividsolutions.jts.geom.Polygon;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -29,6 +30,12 @@ public class PolygonsPolygons {
         FileDataSplitter splitter = FileDataSplitter.WKT; // input file format
         Integer n_partitions = 1; // number of partitions
         Integer n_cores = 8; // number of partitions
+
+        if (args.length > 0) {
+            n_partitions = Integer.parseInt(args[0]);
+            if (args.length > 1)
+                n_cores = Integer.parseInt(args[1]);
+        }
 
         long resultSetCount;
         long tStartRDD = System.currentTimeMillis();
@@ -69,8 +76,8 @@ public class PolygonsPolygons {
         }
 
         double avgExecTime = elapsedSeconds / iter;
-        try (HDFSWriter writer = new HDFSWriter("hdfs:///Projects/demo_spark_kgiann01/Resources/GeosparkPolygonsPolygonsNoIndex"+n_partitions+".txt")) {
-            writer.write(PolygonsPolygons.class.getName(), false, resultSetCount, avgExecTime, warmupTime, iter, n_partitions, n_cores);
+        try (HDFSWriter writer = new HDFSWriter("hdfs:///Projects/demo_spark_kgiann01/Resources/geospatial_results.txt")) {
+            writer.write("GeoSpark", "PolygonsContainPolygons", false, n_partitions, n_cores , warmupTime, avgExecTime, resultSetCount);
         } catch (IOException e) {
             e.printStackTrace();
         }

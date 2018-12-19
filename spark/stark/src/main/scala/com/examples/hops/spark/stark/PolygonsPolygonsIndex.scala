@@ -2,12 +2,14 @@ package com.examples.hops.spark.stark
 
 import java.util.logging.Logger
 
-import com.examples.hops.spark.utils.HDFSWriter
+import com.examples.hops.spark.common.{HDFSWriter, Utils}
 import dbis.stark.STObject
 import dbis.stark.spatial.JoinPredicate
 import dbis.stark.spatial.partitioner.SpatialGridPartitioner
 import dbis.stark.spatial.SpatialRDD._
 import org.apache.spark.sql.SparkSession
+
+import scala.util.control.NonFatal
 
 
 object PolygonsPolygonsIndex {
@@ -24,8 +26,8 @@ object PolygonsPolygonsIndex {
         n_cores = Integer.parseInt(args(1))
     }
 
-    val comments = "Polygons Contains Polygons with Indexer"
-    val path = "hdfs:///Projects/demo_spark_kgiann01/Resources/PolygonsContainPolygonsIndex_p" + n_partitions + "_c" + n_cores + ".txt"
+    val predicate = "PolygonsContainsPolygons"
+    val path = "hdfs:///Projects/demo_spark_kgiann01/Resources/geospatial_results.txt"
 
     val spark = SparkSession
       .builder
@@ -73,11 +75,20 @@ object PolygonsPolygonsIndex {
 
     val avgDuration = totalDuration / iterations
 
-    println(avgDuration)
-
     val writer = new HDFSWriter(path)
-    writer.write(comments, true, count, avgDuration.toDouble / 1000, warmupDuration.toDouble / 1000, iterations, n_partitions, n_cores)
-    writer.close()
+    var exception: Throwable = null
+
+    try {
+      writer.write("STARK", predicate, true, n_partitions, n_cores, warmupDuration.toDouble / 1000, avgDuration.toDouble / 1000, count)
+    } catch {
+      case NonFatal(e) => {
+        exception = e
+        throw e
+      }
+    } finally {
+      Utils.closeAndSuppressed(exception, writer)
+      writer.close()
+    }
   }
 
 }
