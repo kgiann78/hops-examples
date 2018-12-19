@@ -7,7 +7,9 @@ Within the spark directory there are the following applications:
 
 * geospark, that uses txt files as datasets
 * stark, that uses tsv files as datasets
-
+* magellan, that uses shapefile directory as datasets
+* spatial-spark, that uses tsv files as datasets
+* simba, which is currently not operating due to unsupported Spark version
 
 In the datasets directory exist the files that are used from the applications, as mentioned above.
 GeoSpark is using text files as input datasets with only one geometry per line.
