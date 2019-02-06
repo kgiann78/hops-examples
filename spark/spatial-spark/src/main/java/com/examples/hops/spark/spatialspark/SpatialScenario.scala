@@ -161,7 +161,7 @@ class SpatialScenario(
             (temp._1 min temp2._1, temp._2 min temp2._2, temp._3 max temp2._3, temp._4 max temp2._4)
 
           val partConf = method match {
-            case "stp" - geospark=>
+            case "stp" =>
               println("STP partition")
               val dimX = methodConf.split(":").apply(0).toInt
               val dimY = methodConf.split(":").apply(1).toInt
