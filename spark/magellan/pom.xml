@@ -110,8 +110,9 @@
         <!-- https://mvnrepository.com/artifact/harsha2010/magellan -->
         <dependency>
             <groupId>harsha2010</groupId>
-            <artifactId>magellan_${scala.version}</artifactId>
-            <version>1.0.6-SNAPSHOT</version>
+            <artifactId>magellan</artifactId>
+            <version>1.0.4-s_${scala.version}</version>
+            <!--<version>1.0.6-SNAPSHOT</version>-->
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.hadoop</groupId>

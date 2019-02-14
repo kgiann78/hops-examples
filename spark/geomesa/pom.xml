@@ -22,11 +22,12 @@
     <name>hops-examples-spark-geomesa</name>
 
     <properties>
-        <spark.version>2.3.2</spark.version>
+        <spark.version>2.4.0</spark.version>
         <scala.binary.version>2.11</scala.binary.version>
         <geomesa.version>2.3.0-SNAPSHOT</geomesa.version>
         <hadoop.version>2.6.5</hadoop.version>
         <specs2.version>4.3.2</specs2.version>
+        <io.hops>2.8.2.7</io.hops>
     </properties>
 
     <build>
@@ -93,10 +94,10 @@
                                 </relocation>
                                 <!-- we need parquet 1.9.0 in order to do dictionary filtering = 30% speed increase -->
                                 <!-- TODO remove this when spark supports parquet 1.9.0 out of the box -->
-                                <relocation>
-                                    <pattern>org.apache.parquet</pattern>
-                                    <shadedPattern>org.locationtech.geomesa.fs.shaded.org.apache.parquet</shadedPattern>
-                                </relocation>
+                                <!--<relocation>-->
+                                    <!--<pattern>org.apache.parquet</pattern>-->
+                                    <!--<shadedPattern>org.locationtech.geomesa.fs.shaded.org.apache.parquet</shadedPattern>-->
+                                <!--</relocation>-->
                                 <!-- spark also includes orc/hive, relocate to avoid version conflicts -->
                                 <relocation>
                                     <pattern>org.apache.orc</pattern>
@@ -136,6 +137,12 @@
             <groupId>org.locationtech.geomesa</groupId>
             <artifactId>geomesa-fs-datastore_${scala.binary.version}</artifactId>
             <version>${geomesa.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.pureconfig</groupId>
+                    <artifactId>pureconfig</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -208,15 +215,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.hadoop</groupId>
+            <groupId>io.hops</groupId>
             <artifactId>hadoop-mapreduce-client-common</artifactId>
-            <version>${hadoop.version}</version>
+            <version>${io.hops}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.hadoop</groupId>
+            <groupId>io.hops</groupId>
             <artifactId>hadoop-minicluster</artifactId>
-            <version>${hadoop.version}</version>
+            <version>${io.hops}</version>
             <scope>test</scope>
         </dependency>
 
